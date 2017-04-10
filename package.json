@@ -1,0 +1,15 @@
+{
+  "name": "ed",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "du.kulaevskiy",
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "^4.9.4",
+    "request": "^2.81.0"
+  }
+}
