@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+    .container {
+      display: flex;
+      margin-bottom: 4px;
+    }
+
+    .button {
+      cursor: pointer;
+
+      font-family: Arial;
+      font-size: 16px;
+      color: #8e8e8e;
+      white-space: nowrap;
+
+      padding: 8px 20px;
+      margin-left: 15px;
+
+      border: 1px solid #C5C5C5;
+      border-radius: 8px;
+
+      background-image: linear-gradient(to bottom, #ffffff, #d8d8d8);
+    }
+
+    [dir="rtl"] .button {
+      margin-right: 15px;
+      margin-left: 0;
+    }
+
+    .text {
+      font-family: Arial;
+      font-size: 16px;
+      padding: 0 4px;
+
+      flex-grow: 1;
+    }
+
+    .example {
+      color: gray;
+      font-family: Georgia, serif;
+      font-size: 12px;
+    }
+    </style>
+  </head>
+  <body>
+    <form class="container">
+      <input class="text"></input>
+      <button class="button">Send code</button>
+    </form>
+    <div class="example">
+      Example: 72A22EF8-8766-4352-EBBAC445687A
+    </div>
+  </body>
+</html>
