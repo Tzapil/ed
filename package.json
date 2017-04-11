@@ -9,6 +9,7 @@
   "author": "du.kulaevskiy",
   "license": "MIT",
   "dependencies": {
+    "async": "^2.3.0",
     "mongoose": "^4.9.4",
     "request": "^2.81.0"
   }
