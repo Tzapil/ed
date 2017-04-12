@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="testApp">
+<html lang="en" ng-app="myApp">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -39,30 +39,18 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#"><span class="logo fa fa-graduation-cap"></span></a>
+          <a class="navbar-brand" href="#!/home"><span class="logo fa fa-graduation-cap"></span></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
-            <li><a href="users.html"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Users</a></li>
+            <li class="active"><a href="#!/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
+            <li><a href="#!/users"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Users</a></li>
           </ul>
         </div>
       </div>
     </nav>
 
     <div ng-view></div>
-
-    <header class="jumbotron">
-      <div class="container">
-          <div class="row row-header">
-              <div class="col-xs-12">
-                  <h1 class="center">Тестовое задание</h1>
-                  <p style="padding:40px;"></p>
-                  <p class="center">Это страница приветствия, оформленная в произвольном формате, сделанная в качестве тестового задания в Kaspersky Lab!</p>
-              </div>
-          </div>
-      </div>
-    </header>
 
     <footer id="footer">
         <div class="container">
@@ -81,7 +69,7 @@
       <script src="bower_components/jquery/dist/jquery.min.js"></script>
       <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
       <script src="bower_components/angular/angular.min.js"></script>
-      <script src="bower_components/angular/angular-route.min.js"></script>
+      <script src="bower_components/angular-route/angular-route.min.js"></script>
       <script src="js/script.js"></script>
       <script src="js/router.js"></script>
     <!-- endbuild -->
