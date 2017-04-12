@@ -1,0 +1,23 @@
+{
+  "name": "clients",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "du.kulaevskiy <du.kulaevskiy@tensor.ru>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Tzapil/ed",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "angular": "angularjs#^1.6.4",
+    "jquery": "^3.2.1",
+    "font-awesome": "^4.7.0"
+  }
+}

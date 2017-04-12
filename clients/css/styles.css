@@ -1,0 +1,41 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 70px;
+  /* Margin top by header height */
+  margin-top: 50px;
+}
+
+.jumbotron {
+  margin: 0 auto;
+  background: white;
+  color: black;
+}
+
+.logo {
+  margin-top: -5px;
+  color: white;
+}
+
+#start {
+  margin-right: 10px;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 61px;
+}
+
+.footer-content {
+  border-top: 1px solid lightgray;
+}
+
+.center {
+  text-align: center;
+}
