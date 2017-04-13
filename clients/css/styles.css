@@ -20,6 +20,11 @@ body {
   color: white;
 }
 
+.row-content {
+  margin: 0px auto;
+  padding: 20px 0px;
+}
+
 #start {
   margin-right: 10px;
 }
@@ -38,4 +43,17 @@ body {
 
 .center {
   text-align: center;
+}
+
+/* USERS TABLE */
+.users {
+  border-collapse: collapse;
+}
+
+.users .header {
+  cursor: pointer;
+}
+
+.sortorder {
+  padding-left: 4px;
 }

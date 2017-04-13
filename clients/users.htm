@@ -1,9 +1,46 @@
 <div class="container">
-    <div class="row row-header">
+    <!-- <div class="row row-content">
+      Order By:
+      <div class="btn-group">
+        <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Кнопка <span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><a ng-click="setSotring('name')">None</a></li>
+            <li><a ng-click="setSotring('id')">None</a></li>
+            <li><a ng-click="setSotring('department')">Department</a></li>
+            <li><a ng-click="setSotring('email')">Email</a></li>
+            <li><a ng-click="setSotring('ssn')">SSN</a></li>
+         </ul>
+      </div>
+    </div> -->
+    <div class="row row-content">
         <div class="col-xs-12">
-            <h1 class="center">Тестовое задание</h1>
-            <p style="padding:40px;"></p>
-            <p class="center">Это страница с юзерами и будет переделана!</p>
+          <form>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                <input type="text" class="form-control" placeholder="Search" ng-model="searchUser">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-xs-12">
+          <table class="table users">
+            <thead>
+              <tr>
+                <th ng-repeat="header in headers">
+                  <span class="header" ng-click="sortBy(header|lowercase)">{{header}}</span>
+                  <span class="sortorder fa" ng-show="isSorted(header|lowercase)" ng-class="reverse ? 'fa-caret-up': 'fa-caret-down'"></span></th>
+              </tr>
+            </thead>
+            <tbody class="table-striped">
+              <tr ng-repeat="user in users | fullname | orderBy:propertyName:reverse | filter:searchUser">
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.department}}</td>
+                <td>{{user.ssn}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
     </div>
 </div>
