@@ -13,34 +13,27 @@
       </div>
     </div> -->
     <div class="row row-content">
-        <div class="col-xs-12">
-          <form>
-            <div class="form-group">
-              <div class="input-group">
-                <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                <input type="text" class="form-control" placeholder="Search" ng-model="searchUser">
+        <div ng-controller="TabsController">
+          <div class="col-md-10 col-xs-12">
+            <form>
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                  <input type="text" class="form-control" placeholder="Search" ng-model="searchUser">
+                </div>
               </div>
-            </div>
-          </form>
-        </div>
-        <div class="col-xs-12">
-          <table class="table users">
-            <thead>
-              <tr>
-                <th ng-repeat="header in headers">
-                  <span class="header" ng-click="sortBy(header|lowercase)">{{header}}</span>
-                  <span class="sortorder fa" ng-show="isSorted(header|lowercase)" ng-class="reverse ? 'fa-caret-up': 'fa-caret-down'"></span></th>
-              </tr>
-            </thead>
-            <tbody class="table-striped">
-              <tr ng-repeat="user in users | fullname | orderBy:propertyName:reverse | filter:searchUser">
-                <td>{{user.name}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.department}}</td>
-                <td>{{user.ssn}}</td>
-              </tr>
-            </tbody>
-          </table>
+            </form>
+
+            <div ng-show="isSet(1)" ng-controller="UserController" ng-include="'list.htm'"></div>
+            <div ng-show="isSet(2)" ng-controller="UserController" ng-include="'tiles.htm'"></div>
+          </div>
+          <div class="col-md-2 col-xs-12">
+            <ul class="nav nav-pills nav-stacked">
+              <li ng-class="{ active: isSet(1) }"><a href ng-click="setTab(1)">List</a></li>
+              <li ng-class="{ active: isSet(2) }"><a href ng-click="setTab(2)">Tiles</a></li>
+              <li ng-class="{ active: isSet(3) }"><a href ng-click="setTab(3)">Groups</a></li>
+            </ul>
+          </div>
         </div>
     </div>
 </div>

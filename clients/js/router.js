@@ -8,8 +8,7 @@ app.config(function($routeProvider) {
           templateUrl : "welcome.htm"
       })
       .when("/users", {
-          templateUrl : "users.htm",
-          controller : "UserController"
+          templateUrl : "users.htm"
       })
       .otherwise({
         redirectTo: "/home"

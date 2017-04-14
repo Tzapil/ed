@@ -57,3 +57,60 @@ body {
 .sortorder {
   padding-left: 4px;
 }
+
+.navBardemoBasicUsage md-content .ext-content {
+  padding: 50px;
+  margin: 20px;
+  background-color: #FFF2E0;
+}
+
+/* ------------- TILES ---------------*/
+.tile {
+  width: 200px;
+  /*height: 300px;*/
+  margin: 10px 10px 0 0;
+  padding: 10px;
+
+  display: inline-block;
+
+  background: whitesmoke;
+  border: 1px solid whitesmoke;
+}
+
+.tile:hover {
+  border: 1px solid lightblue;
+}
+
+.tile .tile-select {
+  cursor: pointer;
+
+  margin: 0;
+}
+
+.tile .tile-cloud {
+  color: black;
+  float: right;
+}
+
+.tile .tile-content {
+  margin-top: 4px;
+  text-align: center;
+}
+
+.tile .tile-name {
+  font-weight: bold;
+}
+
+.tile .tile-photo {
+  height: 150px;
+  width: 100%;
+  background: red;
+}
+
+.tile .tile-department {
+  margin-top: 16px;
+}
+
+.tile .tile-telephone {
+  margin-top: 8px;
+}

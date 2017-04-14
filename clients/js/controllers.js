@@ -14,10 +14,22 @@ app
       $scope.item = item;
     }
   }])
+  .controller('TabsController', ['$scope', function ($scope) {
+    $scope.tab = 2;
+
+    $scope.setTab = function(newTab){
+      $scope.tab = newTab;
+    };
+
+    $scope.isSet = function(tabNum){
+      return $scope.tab === tabNum;
+    };
+  }])
   .controller('UserController', ['$scope', '$http', function ($scope, $http) {
       $scope.headers = ["Name", "Email", "Department", "SSN"];
       $scope.propertyName = 'name';
       $scope.reverse = false;
+      $scope.currentView = 'page1';
 
       $scope.sortBy = function(propertyName) {
         $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;

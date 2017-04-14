@@ -1,0 +1,17 @@
+<table class="table users">
+  <thead>
+    <tr>
+      <th ng-repeat="header in headers">
+        <span class="header" ng-click="sortBy(header|lowercase)">{{header}}</span>
+        <span class="sortorder fa" ng-show="isSorted(header|lowercase)" ng-class="reverse ? 'fa-caret-up': 'fa-caret-down'"></span></th>
+    </tr>
+  </thead>
+  <tbody class="table-striped">
+    <tr ng-repeat="user in users | fullname | orderBy:propertyName:reverse | filter:searchUser">
+      <td>{{user.name}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.department}}</td>
+      <td>{{user.ssn}}</td>
+    </tr>
+  </tbody>
+</table>
