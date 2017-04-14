@@ -104,7 +104,8 @@ body {
 .tile .tile-photo {
   height: 150px;
   width: 100%;
-  background: red;
+
+  line-height: 150px;
 }
 
 .tile .tile-department {

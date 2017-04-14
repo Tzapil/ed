@@ -27,6 +27,7 @@ app
   }])
   .controller('UserController', ['$scope', '$http', function ($scope, $http) {
       $scope.headers = ["Name", "Email", "Department", "SSN"];
+      $scope.users = [];
       $scope.propertyName = 'name';
       $scope.reverse = false;
       $scope.currentView = 'page1';
