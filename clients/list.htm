@@ -1,17 +1,31 @@
-<table class="table users">
-  <thead>
-    <tr>
-      <th ng-repeat="header in headers">
-        <span class="header" ng-click="sortBy(header|lowercase)">{{header}}</span>
-        <span class="sortorder fa" ng-show="isSorted(header|lowercase)" ng-class="reverse ? 'fa-caret-up': 'fa-caret-down'"></span></th>
-    </tr>
-  </thead>
-  <tbody class="table-striped">
-    <tr ng-repeat="user in users | orderBy:propertyName:reverse | filter:searchUser">
-      <td>{{user.name}}</td>
-      <td>{{user.email}}</td>
-      <td>{{user.department}}</td>
-      <td>{{user.ssn}}</td>
-    </tr>
-  </tbody>
-</table>
+<div>
+  <table class="table table-striped users" ng-controller="ListController">
+    <thead>
+      <tr>
+        <th ng-repeat="header in headers">
+          <span class="header" ng-click="sortBy(header|lowercase)">{{header}}</span>
+          <span class="sortorder fa" ng-show="isSorted(header|lowercase)" ng-class="reverse ? 'fa-caret-up': 'fa-caret-down'"></span></th>
+      </tr>
+    </thead>
+    <tbody class="table-striped">
+      <tr ng-repeat="user in pagedItems[currentPage - 1] | orderBy:sort.propertyName:sort.reverse">
+        <td class="col-xs-3">{{user.name}}</td>
+        <td class="col-xs-3">{{user.email}}</td>
+        <td class="col-xs-3">{{user.department}}</td>
+        <td class="col-xs-3">{{user.telephone}}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <td colspan="6">
+        <div class="pull-right">
+          <div paging
+            page="currentPage"
+            page-size="itemsPerPage"
+            total="filteredItems.length"
+            paging-action="setPage(page)">
+          </div>
+        </div>
+      </td>
+    </tfoot>
+  </table>
+</div>
