@@ -84,6 +84,13 @@ body {
 }
 
 /* ------------- TILES ---------------*/
+.tiles,
+.groups {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .tile {
   width: 155px;
   height: 250px;
@@ -162,7 +169,7 @@ body {
 
 .group .group-item {
   border: 1px solid lightgray;
-  padding: 4px;
+  padding: 8px;
   min-width: 200px;
 
   margin-bottom: 5px;
@@ -175,4 +182,8 @@ body {
 .group .group-department {
   font-size: 12px;
   color: gray;
+}
+
+.group .group-username {
+  padding-bottom: 6px;
 }

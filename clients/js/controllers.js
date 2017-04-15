@@ -40,39 +40,56 @@ app
       return $scope.sort.propertyName == property;
     };
   }])
-  .controller('UserController', ['$scope', '$http', function ($scope, $http) {
+  .controller('UserController', ['$scope', '$http', '$filter', function ($scope, $http, $filter) {
       $scope.headers = ["Name", "Email", "Department", "Telephone"];
       $scope.users = [];
+      $scope.filtered = [];
+      $scope.groups = [];
       $scope.currentView = 'page1';
 
-      $http.get('/data').then(function (answer) {
-        $scope.users = answer.data;
+      $scope.filterUsers = function () {
+        return $filter('filter')($scope.users, $scope.searchName) || [];
+      }
 
-        // Build fullname
-        for(var i = 0; i < $scope.users.length; i++) {
-           var item = $scope.users[i];
+      $scope.addVirtual = function (users) {
+        for(var i = 0; i < users.length; i++) {
+           var item = users[i];
            item.name = item.first_name + ' ' + item.last_name;
            item.telephone = "+123(456)123-45-76";
         }
+      }
 
-        // build groups
-        $scope.groups = [];
+      $scope.collectGroups = function (users) {
+        var result = [];
         var temp = {};
-        for(var i = 0; i < $scope.users.length; i++) {
-           var item = $scope.users[i];
+        for(var i = 0; i < users.length; i++) {
+           var item = users[i];
            if (!temp[item.group]) {
              temp[item.group] = [];
-             $scope.groups.push({
+             result.push({
                name: item.group,
                items: temp[item.group]
              })
            }
            temp[item.group].push(item);
         }
-      });
-  }])
-  .controller('SortController', ['$scope', function ($scope) {
 
+        return result;
+      }
+
+      $http.get('/data').then(function (answer) {
+        $scope.users = answer.data;
+
+        $scope.filtered = $scope.filterUsers();
+        $scope.addVirtual($scope.filtered);
+        $scope.groups = $scope.collectGroups($scope.filtered);
+      });
+
+      $scope.$watch('searchName', function (newVal, oldVal) {
+        $scope.filtered = $scope.filterUsers();
+        $scope.addVirtual($scope.filtered);
+        $scope.groups = $scope.collectGroups($scope.filtered);
+    	}, true);
   }])
   .controller('PagingController', ['$scope', '$filter', function ($scope, $filter) {
     // Pagination
@@ -101,10 +118,9 @@ app
   	}, true);
 
     $scope.search = function () {
-      $scope.filteredItems = $filter('filter')($scope.users, $scope.searchName) || [];
       // take care of the sorting order
       if ($scope.sort.propertyName !== '') {
-        $scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sort.propertyName, $scope.sort.reverse);
+        $scope.filteredItems = $filter('orderBy')($scope.filtered, $scope.sort.propertyName, $scope.sort.reverse);
       }
       // now group by pages`
       $scope.groupToPages();
