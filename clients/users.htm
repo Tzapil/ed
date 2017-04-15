@@ -1,6 +1,6 @@
 <div class="container" ng-controller="TabsController">
   <div class="row row-filters">
-    <div class="col-xs-12 col-md-6 col-md-push-6">
+    <div class="col-xs-12 col-md-6 col-md-push-6 view-select">
       <ul class="nav nav-pills nav-justified">
         <li ng-class="{ active: isSet(1) }"><a href ng-click="setTab(1)">List</a></li>
         <li ng-class="{ active: isSet(2) }"><a href ng-click="setTab(2)">Tiles</a></li>
@@ -17,17 +17,22 @@
         </div>
       </form>
     </div>
-    <div ng-show="isSet(2)" class="col-xs-6 col-md-3">
-      <div class="dropdown form-inline form-group">
-        <label>
-          Order By:
+    <div ng-show="isSet(2)" class="col-xs-12">
+      <div class="form-inline">
+        <div class="form-group">
+          <label>Order By:</label>
           <select ng-model="sort.propertyName" class="form-control">
             <option value="name">Name</option>
             <option value="email">Email</option>
             <option value="department">Department</option>
             <option value="telephone">Telephone</option>
           </select>
-        </label>
+        </div>
+        <button type="button"
+                class="reverse-button btn btn-default"
+                ng-click="sort.reverse = !sort.reverse">
+          {{sort.reverse ? 'Reverse' : 'Straight'}}
+        </button>
       </div>
     </div>
   </div>

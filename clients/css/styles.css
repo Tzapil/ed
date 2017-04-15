@@ -75,6 +75,14 @@ body {
   cursor: pointer;
 }
 
+.reverse-button {
+  width: 100px;
+}
+
+.view-select {
+  margin-bottom: 20px;
+}
+
 /* ------------- TILES ---------------*/
 .tile {
   width: 155px;
