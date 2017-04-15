@@ -20,9 +20,15 @@ body {
   color: white;
 }
 
-.row-content {
+.row-content,
+.row-filters {
   margin: 0px auto;
-  padding: 20px 0px;
+  margin-top: 20px;
+}
+
+.row-filters {
+  border-bottom: 1px solid lightgray;
+  padding: 20px;
 }
 
 #start {
@@ -62,6 +68,11 @@ body {
   padding: 50px;
   margin: 20px;
   background-color: #FFF2E0;
+}
+
+.dropdown select,
+.dropdown option {
+  cursor: pointer;
 }
 
 /* ------------- TILES ---------------*/

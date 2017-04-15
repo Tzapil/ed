@@ -1,5 +1,5 @@
 <div>
-  <table class="table table-striped users" ng-controller="ListController">
+  <table class="table table-striped users">
     <thead>
       <tr>
         <th ng-repeat="header in headers">
@@ -15,17 +15,5 @@
         <td class="col-xs-3">{{user.telephone}}</td>
       </tr>
     </tbody>
-    <tfoot>
-      <td colspan="6">
-        <div class="pull-right">
-          <div paging
-            page="currentPage"
-            page-size="itemsPerPage"
-            total="filteredItems.length"
-            paging-action="setPage(page)">
-          </div>
-        </div>
-      </td>
-    </tfoot>
   </table>
 </div>

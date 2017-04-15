@@ -1,17 +1,19 @@
 <div>
-  <div class="tile" ng-repeat="user in users | orderBy:propertyName:reverse | filter:searchName">
-    <div class="tile-content">
-      <div class="tile-icons">
-        <input type="checkbox" class="tile-select">
-        <a href class="tile-cloud fa fa-cloud" aria-hidden="true"></a>
-      </div>
+  <div class="tiles">
+    <div class="tile" ng-repeat="user in pagedItems[currentPage - 1] | orderBy:sort.propertyName:sort.reverse">
+      <div class="tile-content">
+        <div class="tile-icons">
+          <input type="checkbox" class="tile-select">
+          <a href class="tile-cloud fa fa-cloud" aria-hidden="true"></a>
+        </div>
 
-      <div class="tile-name">{{user.name}}</div>
-      <div class="tile-photo">
-        <img src="{{user.avatar}}" width="50" height="50">
+        <div class="tile-name">{{user.name}}</div>
+        <div class="tile-photo">
+          <img src="{{user.avatar}}" width="50" height="50">
+        </div>
+        <div class="tile-department">{{user.department}}</div>
+        <div class="tile-telephone">{{user.telephone}}</div>
       </div>
-      <div class="tile-department">{{user.department}}</div>
-      <div class="tile-telephone">{{user.telephone}}</div>
     </div>
   </div>
 </div>

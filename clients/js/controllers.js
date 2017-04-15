@@ -24,6 +24,21 @@ app
     $scope.isSet = function(tabNum){
       return $scope.tab === tabNum;
     };
+
+    // Sort
+    $scope.sort = {
+      propertyName : 'name',
+      reverse : false
+    };
+
+    $scope.sortBy = function(propertyName) {
+      $scope.sort.reverse = ($scope.sort.propertyName === propertyName) ? !$scope.sort.reverse : false;
+      $scope.sort.propertyName = propertyName;
+    };
+
+    $scope.isSorted = function(property) {
+      return $scope.sort.propertyName == property;
+    };
   }])
   .controller('UserController', ['$scope', '$http', function ($scope, $http) {
       $scope.headers = ["Name", "Email", "Department", "Telephone"];
@@ -56,32 +71,22 @@ app
         }
       });
   }])
-  .controller('ListController', ['$scope', '$filter', function ($scope, $filter) {
-    // Sort
-    $scope.sort = {
-      propertyName : 'name',
-      reverse : false
-    };
+  .controller('SortController', ['$scope', function ($scope) {
 
-    $scope.sortBy = function(propertyName) {
-      $scope.sort.reverse = ($scope.sort.propertyName === propertyName) ? !$scope.sort.reverse : false;
-      $scope.sort.propertyName = propertyName;
-
-      $scope.search();
-    };
-
-    $scope.isSorted = function(property) {
-      return $scope.sort.propertyName == property;
-    };
-
+  }])
+  .controller('PagingController', ['$scope', '$filter', function ($scope, $filter) {
     // Pagination
     $scope.gap = 5;
 
     $scope.filteredItems = [];
-    $scope.itemsPerPage = 10;
+    $scope.itemsPerPage = 12;
     $scope.pagedItems = [];
 
     $scope.currentPage = 1;
+
+    $scope.$watch('sort', function (newVal, oldVal) {
+      $scope.search();
+  	}, true);
 
     $scope.$watch('searchName', function (newVal, oldVal) {
   		$scope.currentPage = 1;
@@ -89,8 +94,14 @@ app
       $scope.search();
   	}, true);
 
+    $scope.$watch('users', function (newVal, oldVal) {
+  		$scope.currentPage = 1;
+
+      $scope.search();
+  	}, true);
+
     $scope.search = function () {
-      $scope.filteredItems = $filter('filter')($scope.users, {name: $scope.searchName});
+      $scope.filteredItems = $filter('filter')($scope.users, $scope.searchName) || [];
       // take care of the sorting order
       if ($scope.sort.propertyName !== '') {
         $scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sort.propertyName, $scope.sort.reverse);
@@ -128,6 +139,4 @@ app
     $scope.setPage = function (page) {
       $scope.currentPage = page;
     };
-
-    $scope.search();
   }]);

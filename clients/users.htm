@@ -1,41 +1,54 @@
-<div class="container">
-    <!-- <div class="row row-content">
-      Order By:
-      <div class="btn-group">
-        <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Кнопка <span class="caret"></span></button>
-          <ul class="dropdown-menu">
-            <li><a ng-click="setSotring('name')">None</a></li>
-            <li><a ng-click="setSotring('id')">None</a></li>
-            <li><a ng-click="setSotring('department')">Department</a></li>
-            <li><a ng-click="setSotring('email')">Email</a></li>
-            <li><a ng-click="setSotring('ssn')">SSN</a></li>
-         </ul>
-      </div>
-    </div> -->
-    <div class="row row-content">
-        <div ng-controller="TabsController">
-          <div class="col-xs-12 col-sm-2 col-md-push-10">
-            <ul class="nav nav-pills nav-stacked">
-              <li ng-class="{ active: isSet(1) }"><a href ng-click="setTab(1)">List</a></li>
-              <li ng-class="{ active: isSet(2) }"><a href ng-click="setTab(2)">Tiles</a></li>
-              <li ng-class="{ active: isSet(3) }"><a href ng-click="setTab(3)">Groups</a></li>
-            </ul>
-          </div>
-
-          <div class="col-xs-12 col-sm-10 col-sm-pull-2">
-            <form>
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                  <input type="text" class="form-control" placeholder="Search" ng-model="searchName">
-                </div>
-              </div>
-            </form>
-
-            <div ng-show="isSet(1)" ng-controller="UserController" ng-include="'list.htm'"></div>
-            <div ng-show="isSet(2)" ng-controller="UserController" ng-include="'tiles.htm'"></div>
-            <div ng-show="isSet(3)" ng-controller="UserController" ng-include="'groups.htm'"></div>
+<div class="container" ng-controller="TabsController">
+  <div class="row row-filters">
+    <div class="col-xs-12 col-md-6 col-md-push-6">
+      <ul class="nav nav-pills nav-justified">
+        <li ng-class="{ active: isSet(1) }"><a href ng-click="setTab(1)">List</a></li>
+        <li ng-class="{ active: isSet(2) }"><a href ng-click="setTab(2)">Tiles</a></li>
+        <li ng-class="{ active: isSet(3) }"><a href ng-click="setTab(3)">Groups</a></li>
+      </ul>
+    </div>
+    <div class="cox-xs-12 col-md-6 col-md-pull-6">
+      <form>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+            <input type="text" class="form-control" placeholder="Search" ng-model="searchName">
           </div>
         </div>
+      </form>
     </div>
+    <div ng-show="isSet(2)" class="col-xs-6 col-md-3">
+      <div class="dropdown form-inline form-group">
+        <label>
+          Order By:
+          <select ng-model="sort.propertyName" class="form-control">
+            <option value="name">Name</option>
+            <option value="email">Email</option>
+            <option value="department">Department</option>
+            <option value="telephone">Telephone</option>
+          </select>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="row row-content">
+    <div class="col-xs-12">
+      <div ng-controller="UserController">
+        <div ng-controller="PagingController">
+          <div ng-show="isSet(1)" ng-include="'list.htm'"></div>
+          <div ng-show="isSet(2)" ng-include="'tiles.htm'"></div>
+          <div>
+            <div ng-show="isSet(1) || isSet(2)"
+              paging
+              page="currentPage"
+              page-size="itemsPerPage"
+              total="filteredItems.length"
+              paging-action="setPage(page)">
+            </div>
+          </div>
+        </div>
+        <div ng-show="isSet(3)" ng-include="'groups.htm'"></div>
+      </div>
+    </div>
+  </div>
 </div>
