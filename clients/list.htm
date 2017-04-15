@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody class="table-striped">
-    <tr ng-repeat="user in users | fullname | orderBy:propertyName:reverse | filter:searchUser">
+    <tr ng-repeat="user in users | orderBy:propertyName:reverse | filter:searchUser">
       <td>{{user.name}}</td>
       <td>{{user.email}}</td>
       <td>{{user.department}}</td>

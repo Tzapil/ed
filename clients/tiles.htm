@@ -1,10 +1,11 @@
 <div>
-  <div class="tile" ng-repeat="user in users | fullname | orderBy:propertyName:reverse | filter:searchUser">
-    <div class="tile-icons">
-      <input type="checkbox" class="tile-select">
-      <a href class="tile-cloud fa fa-cloud" aria-hidden="true"></a>
-    </div>
+  <div class="tile" ng-repeat="user in users | orderBy:propertyName:reverse | filter:searchUser">
     <div class="tile-content">
+      <div class="tile-icons">
+        <input type="checkbox" class="tile-select">
+        <a href class="tile-cloud fa fa-cloud" aria-hidden="true"></a>
+      </div>
+
       <div class="tile-name">{{user.name}}</div>
       <div class="tile-photo">
         <img src="{{user.avatar}}" width="50" height="50">

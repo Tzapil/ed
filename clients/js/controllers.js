@@ -15,7 +15,7 @@ app
     }
   }])
   .controller('TabsController', ['$scope', function ($scope) {
-    $scope.tab = 2;
+    $scope.tab = 3;
 
     $scope.setTab = function(newTab){
       $scope.tab = newTab;
@@ -43,5 +43,26 @@ app
 
       $http.get('/data').then(function (answer) {
         $scope.users = answer.data;
+
+        // Build fullname
+        for(var i = 0; i < $scope.users.length; i++) {
+           var item = $scope.users[i];
+           item.name = item.first_name + ' ' + item.last_name;
+        }
+
+        // build groups
+        $scope.groups = [];
+        var temp = {};
+        for(var i = 0; i < $scope.users.length; i++) {
+           var item = $scope.users[i];
+           if (!temp[item.group]) {
+             temp[item.group] = [];
+             $scope.groups.push({
+               name: item.group,
+               items: temp[item.group]
+             })
+           }
+           temp[item.group].push(item);
+        }
       });
   }]);
