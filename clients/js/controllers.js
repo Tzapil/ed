@@ -77,7 +77,10 @@ app
         return result;
       }
 
-      $http.get('/data').then(function (answer) {
+      $http({
+        url: 'https://puu.sh/vm7w2/4947ae7169.json',
+        method: 'GET'
+      }).then(function (answer) {
         $scope.users = answer.data;
 
         $scope.filtered = $scope.filterUsers();
