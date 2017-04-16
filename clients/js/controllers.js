@@ -78,7 +78,7 @@ app
       }
 
       $http({
-        url: 'https://puu.sh/vm7w2/4947ae7169.json',
+        url: 'https://raw.githubusercontent.com/Tzapil/ed/master/clients/MOCK_DATA.json',
         method: 'GET'
       }).then(function (answer) {
         $scope.users = answer.data;
