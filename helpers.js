@@ -1,6 +1,5 @@
 var https = require('https');
 var request = require('request');
-var async = require('async');
 
 function fetchJSON(url, callback) {
   request({
@@ -87,37 +86,27 @@ function updateDB(Scheme, url) {
     fetcher(url, function (err, data, done) {
       if (err) throw err;
 
-      async.series([
-        function (callback) {
-          for (var i = 0; i < data.length; i++) {
-            bulk.find({id: data[i].id}).upsert().replaceOne(data[i], {strict: true});
-          }
+      for (var i = 0; i < data.length; i++) {
+        bulk.find({id: data[i].id}).upsert().updateOne(data[i], {strict: true});
+      }
 
-          counter += data.length;
+      counter += data.length;
 
-          if (done || counter > 1000) {
-            counter = 0;
-            operations.push(new Promise(function (res, rej) {
-              bulk.execute(function (err, result) {
-                if (err) throw err;
-                if (done) {
-                  Promise.all(operations, function () {
-                    resolve();
-                  });
-                }
+      if (done || counter > 1000) {
+        counter = 0;
+        operations.push(new Promise(function (res, rej) {
+          bulk.execute(function (err, result) {
+            if (err) throw err;
+            res();
+          });
+        }));
 
-                res();
-                bulk = Scheme.collection.initializeOrderedBulkOp();
-                callback();
-              });
-            }));
-          } else {
-            callback();
-          }
+        if (done) {
+          Promise.all(operations).then(() => resolve());
         }
-      ], function (err) {
-        // each iteration is done
-      });
+
+        bulk = Scheme.collection.initializeOrderedBulkOp();
+      }
     });
   });
 }

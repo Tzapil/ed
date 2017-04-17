@@ -1,3 +1,16 @@
 {
-  "mongo": "mongodb://user:password@ds157500.mlab.com:57500/ed"
+  "mongo": "mongodb://user:password@ds157500.mlab.com:57500/ed",
+  "options": { 
+    "server": {
+      "socketOptions": {
+        "keepAlive": 300000, "connectTimeoutMS": 30000
+      }
+    },
+    "replset": {
+      "socketOptions": {
+        "keepAlive": 300000,
+        "connectTimeoutMS" : 30000
+      }
+    }
+  }
 }

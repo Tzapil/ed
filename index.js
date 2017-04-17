@@ -7,7 +7,7 @@ var commodity = require('./dbWrapper/commodity');
 var factions = require('./dbWrapper/factions');
 var systems_recently = require('./dbWrapper/systems_recently');
 
-mongoose.connect(config.mongo);
+mongoose.connect(config.mongo, config.options);
 var db = mongoose.connection;
 
 db.on("open", function () {
