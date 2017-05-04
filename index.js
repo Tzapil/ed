@@ -31,63 +31,78 @@ function findSystemsInRange(system, range, exclude) {
                               x: {$gte: system.x - range, $lte: system.x + range},
                               y: {$gte: system.y - range, $lte: system.y + range},
                               z: {$gte: system.z - range, $lte: system.z + range}}, function (err, systems) {
-      if (err) reject(err);
+      if (err) throw err;
 
-      resolve(systems.filter((item) => item.distance(system) <= range && !any(exclude, (e_item) => e_item == item.id)));
+      resolve(systems.filter(item => item.distance(system) <= range && !any(exclude, (e_item) => e_item == item.id)));
     });
   });
 }
 
-function sortSystemsThoughRange(system) {
-  return function (systems) {
-    systems = systems || [];
+function sortSystemsThoughDistance(systems, system) {
+  systems.sort(function (a, b) {
+    var as = a.distance(system);
+    var bs = b.distance(system);
+    if (as < bs) {
+      return -1;
+    }
 
+    if (as > bs) {
+      return 1;
+    }
+
+    return 0
+  });
+
+  return systems;
+}
+
+function decorator(f, ...args1) {
+  return function (...args2) {
     return new Promise(function (resolve, reject) {
-      systems.sort(function (a, b) {
-        var as = a.distance(system);
-        var bs = b.distance(system);
-        if (as < bs) {
-          return -1;
-        }
-
-        if (as > bs) {
-          return 1;
-        }
-
-        return 0
-      });
-
-      resolve(systems);
+      resolve(f(...args2, ...args1));
     });
   }
 }
 
-function findPath (s1, s2, fsd, path) {
-  path = path || [];
-
+function path (s1, s2, fsd) {
   return new Promise(function (resolve, reject) {
-    findSystemsInRange(s1, fsd, path)
-      .then(sortSystemsThoughRange(s2))
-      .then(function (systems) {
-        if (systems.length == 0) {
-          resolve([]);
-          return;
-        }
+    function recursion (s1, s2, fsd, path) {
+      findSystemsInRange(s1, fsd, path)
+        .then(decorator(sortSystemsThoughDistance, s2))
+        .then(function (systems) {
+          if (systems.length == 0) {
+            resolve([]);
+            return;
+          }
 
-        if (systems[0].id == s2.id) {
-          resolve([s1, s2]);
-        }
+          if (systems[0].id == s2.id) {
+            resolve([...path, s2]);
+            return;
+          }
 
-        return findPath(systems[0], s2, [s1]);
-      });
+          recursion(systems[0], s2, fsd, [...path, systems[0]]);
+        });
+    }
+
+    recursion(s1, s2, fsd, [s1]);
   });
 }
 
+function findSystem (name) {
+  return new Promise(function (resolve, reject) {
+    systems.SystemModel.findOne({name: name}, function (err, system) {
+      if (err) throw err;
+
+      resolve(system);
+    });
+  });
+}
 
 db.on("open", function () {
   console.log("db connected");
 
-  var start = new Date();
+  let start = new Date();
+  let fsd_power = 20;
   //helpers.updateDB(commodity.CommodityModel, commodity.url);
   // helpers.updateDB(systems.SystemModel, systems.url).then(function () {
   //   console.log("done", (new Date()).getTime() - start.getTime(), "ms");
@@ -98,29 +113,37 @@ db.on("open", function () {
   // });
 
   console.log("Start to search");
-  systems.SystemModel.findOne({name: "Sol"}, function (err, system) {
-    if (err) throw err;
+  let promises = [findSystem("Sol"), findSystem("V711 Tauri")];
 
-    var fsd_power = 18;
-
-    findSystemsInRange(system, fsd_power).then(sortSystemsThoughRange(system)).then(function (systems) {
-      console.log(systems.length);
-      console.log(systems.map((item) => {
-        return {
-          name: item.name,
-          r: item.distance(system)
-        }
-      }));
-      console.log("done", (new Date()).getTime() - start.getTime(), "ms");
-      process.exit(1);
-    })
-    .catch(function () {
-      console.log("error", (new Date()).getTime() - start.getTime(), "ms");
+  Promise.all(promises).then(function ([sol, v711]) {
+    console.log("Systems found", (new Date()).getTime() - start.getTime(), "ms");
+    console.log(sol.distance(v711));
+    path(sol, v711, fsd_power).then(function (path) {
+      console.log("Path found", (new Date()).getTime() - start.getTime(), "ms");
+      console.log(path.length);
+      console.log(path.map(item => item.name));
       process.exit(1);
     });
-  })
-  // factions.updateDB();
-  //systems_recently.updateDB();
+
+    // findSystemsInRange(sol, fsd_power).then(decorator(sortSystemsThoughDistance, v711)).then(function (systems) {
+    //   console.log(systems.length);
+    //   console.log(systems.map((item) => {
+    //     return {
+    //       name: item.name,
+    //       r: item.distance(v711)
+    //     }
+    //   }));
+    //   console.log("done", (new Date()).getTime() - start.getTime(), "ms");
+    //   process.exit(1);
+    // })
+    // .catch(function () {
+    //   console.log("error", (new Date()).getTime() - start.getTime(), "ms");
+    //   process.exit(1);
+    // });
+  }).catch(function () {
+    console.log("Error. Cant find systems", (new Date()).getTime() - start.getTime(), "ms");
+    process.exit(1);
+  });
 });
 
 db.on("error", function () {

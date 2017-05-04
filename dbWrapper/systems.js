@@ -40,7 +40,7 @@ System.methods.distance = function (as) {
   var dy = (this.y - as.y);
   var dz = (this.z - as.z);
 
-  return Math.sqrt(dx + dy + dz)
+  return Math.sqrt(dx*dx + dy*dy + dz*dz);
 }
 
 var SystemModel = mongoose.model('System', System);
