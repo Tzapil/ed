@@ -111,7 +111,29 @@ function updateDB(Scheme, url) {
   });
 }
 
+function any(arr, predicate) {
+  var result = false;
+
+  for (var i = 0; i < arr.length; i++) {
+    if (predicate(arr[i])) {
+      result = true;
+      break;
+    }
+  }
+
+  return result;
+}
+
+function decorator(f, ...args1) {
+  return function (...args2) {
+    return new Promise(function (resolve, reject) {
+      resolve(f(...args2, ...args1));
+    });
+  }
+}
 
 module.exports.fetchJSON = fetchJSON;
 module.exports.fetchCSV = fetchCSV;
 module.exports.updateDB = updateDB;
+module.exports.any = any;
+module.exports.decorator = decorator;
